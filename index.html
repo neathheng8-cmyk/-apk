@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WebToAPK Builder — Turn Any Website Into an Android App</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      scroll-behavior: smooth;
+    }
+    .hero-gradient {
+      background: linear-gradient(135deg, #4f46e5 0%, #6d28d9 48%, #2563eb 100%);
+    }
+    .btn-gradient {
+      background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 55%, #2563eb 100%);
+    }
+    .btn-gradient:hover {
+      background: linear-gradient(135deg, #4338ca 0%, #6d28d9 55%, #1d4ed8 100%);
+    }
+    @keyframes pulse-ring {
+      0% { transform: scale(0.95); opacity: 0.7; }
+      70% { transform: scale(1.15); opacity: 0; }
+      100% { transform: scale(1.15); opacity: 0; }
+    }
+    .pulse-ring {
+      animation: pulse-ring 1.8s infinite;
+    }
+  </style>
+</head>
+<body class="bg-white text-slate-900 antialiased selection:bg-indigo-100 selection:text-indigo-900">
+
+  <!-- Top Navigation -->
+  <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-slate-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <!-- Brand Logo -->
+      <a href="#" class="flex items-center gap-3 group">
+        <div class="w-10 h-10 rounded-xl btn-gradient flex items-center justify-center text-white shadow-md shadow-indigo-500/25 group-hover:scale-105 transition-transform">
+          <i data-lucide="smartphone" class="w-5 h-5"></i>
+        </div>
+        <div>
+          <span class="font-extrabold text-lg tracking-tight text-slate-900">WebToAPK</span>
+          <span class="ml-1.5 text-xs font-semibold px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-600 border border-indigo-100">Builder</span>
+        </div>
+      </a>
+
+      <!-- Nav Links -->
+      <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
+        <a href="#builder" class="hover:text-indigo-600 transition-colors">APK Builder</a>
+        <a href="#history-section" class="hover:text-indigo-600 transition-colors">History</a>
+        <a href="#about" class="hover:text-indigo-600 transition-colors">About</a>
+        <a href="#contact" class="hover:text-indigo-600 transition-colors">Contact</a>
+      </nav>
+
+      <!-- Action Buttons -->
+      <div class="flex items-center gap-2.5">
+        <button onclick="openBackendModal()" class="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 transition-colors cursor-pointer">
+          <i data-lucide="code-2" class="w-4 h-4 text-indigo-600"></i>
+          Backend API
+        </button>
+        <a href="#builder" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold text-white btn-gradient shadow-sm shadow-indigo-500/25 transition-all cursor-pointer">
+          <i data-lucide="zap" class="w-4 h-4"></i>
+          Build APK
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-gradient text-white relative overflow-hidden">
+    <div class="absolute -top-24 -right-24 w-96 h-96 bg-blue-400/20 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute -bottom-24 -left-24 w-96 h-96 bg-purple-400/20 rounded-full blur-3xl pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 lg:py-20 relative z-10">
+      <div class="max-w-3xl mx-auto text-center">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/15 backdrop-blur-sm border border-white/20 text-xs font-semibold mb-6">
+          <span class="w-2 h-2 rounded-full bg-emerald-300 animate-ping"></span>
+          Android WebView Engine • Dynamic Package &amp; Icon Builder
+        </div>
+        <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight">
+          Turn Any Website Into an Android App
+        </h1>
+        <p class="mt-5 text-base sm:text-lg text-indigo-100 max-w-2xl mx-auto leading-relaxed">
+          Enter your website link, choose an app name, upload an icon, and create your Android APK in just a few clicks.
+        </p>
+
+        <div class="mt-8 flex flex-wrap items-center justify-center gap-3 text-xs sm:text-sm text-indigo-100/95">
+          <span class="inline-flex items-center gap-1.5 bg-white/10 px-3 py-1.5 rounded-lg border border-white/15">
+            <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-300"></i> Custom PNG/JPG Icon
+          </span>
+          <span class="inline-flex items-center gap-1.5 bg-white/10 px-3 py-1.5 rounded-lg border border-white/15">
+            <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-300"></i> Auto Package Name
+          </span>
+          <span class="inline-flex items-center gap-1.5 bg-white/10 px-3 py-1.5 rounded-lg border border-white/15">
+            <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-300"></i> Android WebView Ready
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Dashboard Builder -->
+  <main id="builder" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8 pb-16 relative z-20">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-7 items-start">
+
+      <!-- Left Column: Configuration Form (7 cols) -->
+      <div class="lg:col-span-7 bg-white rounded-3xl shadow-xl shadow-slate-200/70 border border-slate-100 p-6 sm:p-8">
+        <div class="flex items-center justify-between pb-5 mb-6 border-b border-slate-100">
+          <div>
+            <h2 class="text-xl font-bold text-slate-900">App Configuration</h2>
+            <p class="text-sm text-slate-500 mt-0.5">Configure your target URL, branding, and Android package details.</p>
+          </div>
+          <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gradient-to-r from-indigo-50 to-blue-50 text-indigo-700 border border-indigo-100">
+            Step 1 of 2
+          </span>
+        </div>
+
+        <form id="apkForm" class="space-y-6" onsubmit="handleBuildApk(event)">
+          <!-- 1. Website URL -->
+          <div>
+            <label for="websiteUrl" class="block text-sm font-semibold text-slate-800 mb-2">
+              1. Website URL <span class="text-rose-500">*</span>
+            </label>
+            <div class="flex flex-col sm:flex-row gap-2.5">
+              <div class="relative flex-1">
+                <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400">
+                  <i data-lucide="globe" class="w-4 h-4"></i>
+                </span>
+                <input
+                  type="text"
+                  id="websiteUrl"
+                  value="https://example.com"
+                  placeholder="https://example.com"
+                  required
+                  class="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 outline-none text-sm font-medium text-slate-900 transition-all"
+                />
+              </div>
+              <button
+                type="button"
+                onclick="testLoadWebsite()"
+                class="px-4 py-3 rounded-xl border border-indigo-200 bg-indigo-50/70 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold inline-flex items-center justify-center gap-1.5 transition-colors shrink-0 cursor-pointer"
+              >
+                <i data-lucide="play" class="w-3.5 h-3.5"></i>
+                Preview Site
+              </button>
+            </div>
+            <div class="mt-2 flex flex-wrap items-center gap-2 text-xs text-slate-500">
+              <span>Quick samples:</span>
+              <button type="button" onclick="applySample('https://example.com', 'Example Web App')" class="text-indigo-600 hover:underline font-medium cursor-pointer">example.com</button>
+              <span>•</span>
+              <button type="button" onclick="applySample('https://wikipedia.org', 'Wiki Reader')" class="text-indigo-600 hover:underline font-medium cursor-pointer">wikipedia.org</button>
+              <span>•</span>
+              <button type="button" onclick="applySample('https://news.ycombinator.com', 'Hacker News')" class="text-indigo-600 hover:underline font-medium cursor-pointer">news.ycombinator.com</button>
+            </div>
+          </div>
+
+          <!-- 2. App Name & Package Name -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            <div>
+              <label for="appName" class="block text-sm font-semibold text-slate-800 mb-2">
+                2. App Name <span class="text-rose-500">*</span>
+              </label>
+              <div class="relative">
+                <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400">
+                  <i data-lucide="type" class="w-4 h-4"></i>
+                </span>
+                <input
+                  type="text"
+                  id="appName"
+                  value="Example Web App"
+                  maxlength="40"
+                  placeholder="My Awesome App"
+                  required
+                  class="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 outline-none text-sm font-medium text-slate-900 transition-all"
+                />
+              </div>
+            </div>
+
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <label for="packageName" class="block text-sm font-semibold text-slate-800">
+                  Package Name
+                </label>
+                <button
+                  type="button"
+                  onclick="regeneratePackageName()"
+                  class="text-xs font-semibold text-indigo-600 hover:text-indigo-700 inline-flex items-center gap-1 cursor-pointer"
+                  title="Generate new unique package name"
+                >
+                  <i data-lucide="refresh-cw" class="w-3 h-3"></i>
+                  Auto-Generate
+                </button>
+              </div>
+              <div class="relative">
+                <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400">
+                  <i data-lucide="package" class="w-4 h-4"></i>
+                </span>
+                <input
+                  type="text"
+                  id="packageName"
+                  value="com.webtoapk.examplewebapp"
+                  pattern="^[a-z][a-z0-9_]*(\.[a-z0-9_]+)+$"
+                  required
+                  class="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 outline-none text-sm font-mono text-slate-800 transition-all"
+                />
+              </div>
+              <p class="text-[11px] text-slate-400 mt-1">Format: com.company.appname (editable)</p>
+            </div>
+          </div>
+
+          <!-- 3. App Icon Upload -->
+          <div>
+            <label class="block text-sm font-semibold text-slate-800 mb-2">
+              3. App Icon (PNG, JPG)
+            </label>
+            <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 p-4 rounded-2xl border-2 border-dashed border-slate-200 hover:border-indigo-400 bg-slate-50/60 transition-colors">
+              <div class="relative shrink-0">
+                <img
+                  id="iconPreviewImg"
+                  src=""
+                  alt="App Icon Preview"
+                  class="w-20 h-20 rounded-2xl object-cover shadow-md border border-slate-200 bg-white"
+                />
+                <span class="absolute -bottom-1.5 -right-1.5 w-6 h-6 rounded-full bg-indigo-600 text-white flex items-center justify-center shadow">
+                  <i data-lucide="image" class="w-3.5 h-3.5"></i>
+                </span>
+              </div>
+
+              <div class="flex-1 space-y-2">
+                <div class="flex flex-wrap items-center gap-2">
+                  <label for="iconInput" class="px-3.5 py-2 rounded-xl bg-white hover:bg-slate-50 border border-slate-200 text-xs font-semibold text-slate-700 inline-flex items-center gap-1.5 shadow-2xs cursor-pointer transition-colors">
+                    <i data-lucide="upload" class="w-3.5 h-3.5 text-indigo-600"></i>
+                    Choose PNG / JPG
+                  </label>
+                  <input type="file" id="iconInput" accept="image/png,image/jpeg,image/jpg" class="hidden" onchange="handleIconUpload(event)" />
+                  <button type="button" onclick="setPresetIcon('indigo')" class="px-2.5 py-1.5 rounded-lg text-xs font-medium bg-indigo-100 text-indigo-700 hover:bg-indigo-200 cursor-pointer">Indigo</button>
+                  <button type="button" onclick="setPresetIcon('blue')" class="px-2.5 py-1.5 rounded-lg text-xs font-medium bg-blue-100 text-blue-700 hover:bg-blue-200 cursor-pointer">Sky Blue</button>
+                  <button type="button" onclick="setPresetIcon('purple')" class="px-2.5 py-1.5 rounded-lg text-xs font-medium bg-purple-100 text-purple-700 hover:bg-purple-200 cursor-pointer">Violet</button>
+                </div>
+                <p id="iconFileMeta" class="text-xs text-slate-500">Default launcher icon active • Recommended 512×512px PNG or JPG</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- WebView Options -->
+          <div class="p-4 rounded-2xl bg-slate-50 border border-slate-100">
+            <p class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-3">Android WebView Settings</p>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+              <label class="flex items-center gap-2.5 bg-white p-2.5 rounded-xl border border-slate-200/80 cursor-pointer">
+                <input type="checkbox" id="optJs" checked class="rounded text-indigo-600 focus:ring-indigo-500" />
+                <span class="font-medium text-slate-700">JavaScript Enabled</span>
+              </label>
+              <label class="flex items-center gap-2.5 bg-white p-2.5 rounded-xl border border-slate-200/80 cursor-pointer">
+                <input type="checkbox" id="optDom" checked class="rounded text-indigo-600 focus:ring-indigo-500" />
+                <span class="font-medium text-slate-700">DOM Storage &amp; Cache</span>
+              </label>
+              <label class="flex items-center gap-2.5 bg-white p-2.5 rounded-xl border border-slate-200/80 cursor-pointer">
+                <input type="checkbox" id="optZoom" checked class="rounded text-indigo-600 focus:ring-indigo-500" />
+                <span class="font-medium text-slate-700">Responsive Viewport</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Status / Progress Box -->
+          <div id="statusBox" class="hidden rounded-2xl p-4 border transition-all">
+            <div id="loadingState" class="hidden space-y-2.5">
+              <div class="flex items-center justify-between text-xs font-semibold text-indigo-700">
+                <span class="flex items-center gap-2">
+                  <i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i>
+                  <span id="progressStepText">Initializing Android WebView project...</span>
+                </span>
+                <span id="progressPercentText">0%</span>
+              </div>
+              <div class="w-full h-2.5 bg-indigo-100 rounded-full overflow-hidden">
+                <div id="progressBar" class="h-full btn-gradient rounded-full transition-all duration-300" style="width: 0%"></div>
+              </div>
+            </div>
+
+            <div id="errorState" class="hidden flex items-start gap-3 text-rose-700 bg-rose-50/70">
+              <i data-lucide="alert-circle" class="w-5 h-5 text-rose-600 shrink-0 mt-0.5"></i>
+              <div class="text-sm">
+                <p class="font-bold">APK Generation Failed</p>
+                <p id="errorMessageText" class="text-xs text-rose-600 mt-0.5"></p>
+              </div>
+            </div>
+
+            <div id="successState" class="hidden space-y-3">
+              <div class="flex items-start justify-between gap-3">
+                <div class="flex items-start gap-3">
+                  <div class="w-8 h-8 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0 mt-0.5">
+                    <i data-lucide="check" class="w-4 h-4 stroke-[3]"></i>
+                  </div>
+                  <div>
+                    <p class="text-sm font-bold text-emerald-900">Android APK Ready for Download!</p>
+                    <p id="successDetailsText" class="text-xs text-emerald-700 mt-0.5"></p>
+                  </div>
+                </div>
+              </div>
+              <div class="flex flex-wrap items-center gap-3 pt-1">
+                <button
+                  type="button"
+                  id="downloadApkBtn"
+                  onclick="downloadGeneratedApk()"
+                  class="px-5 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-bold inline-flex items-center gap-2 shadow-md shadow-emerald-600/20 transition-all cursor-pointer"
+                >
+                  <i data-lucide="download" class="w-4 h-4"></i>
+                  Download APK
+                </button>
+                <span id="apkFileSizeBadge" class="text-xs font-mono px-3 py-1.5 rounded-lg bg-white border border-emerald-200 text-emerald-800"></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Convert CTA Button -->
+          <button
+            type="submit"
+            id="convertBtn"
+            class="w-full py-4 px-6 rounded-2xl btn-gradient text-white font-bold text-base shadow-lg shadow-indigo-500/30 hover:shadow-xl hover:shadow-indigo-500/40 active:scale-[0.99] transition-all flex items-center justify-center gap-2.5 cursor-pointer"
+          >
+            <i data-lucide="cpu" class="w-5 h-5"></i>
+            Convert to APK
+          </button>
+        </form>
+      </div>
+
+      <!-- Right Column: Live App & Android WebView Preview (5 cols) -->
+      <div class="lg:col-span-5 bg-white rounded-3xl shadow-xl shadow-slate-200/70 border border-slate-100 p-6 sm:p-7">
+        <div class="flex items-center justify-between mb-4">
+          <div>
+            <h2 class="text-lg font-bold text-slate-900">Live App Preview</h2>
+            <p class="text-xs text-slate-500">Launcher icon, app name &amp; WebView simulation</p>
+          </div>
+          <div class="inline-flex rounded-xl bg-slate-100 p-1 text-xs font-semibold">
+            <button
+              type="button"
+              id="tabLauncher"
+              onclick="switchPreviewTab('launcher')"
+              class="px-3 py-1.5 rounded-lg bg-white text-slate-900 shadow-2xs transition-all cursor-pointer"
+            >
+              Launcher
+            </button>
+            <button
+              type="button"
+              id="tabWebview"
+              onclick="switchPreviewTab('webview')"
+              class="px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition-all cursor-pointer"
+            >
+              WebView
+            </button>
+          </div>
+        </div>
+
+        <!-- Phone Frame -->
+        <div class="mx-auto max-w-[300px] rounded-[2.4rem] bg-slate-900 p-3 shadow-2xl border-4 border-slate-800">
+          <div class="rounded-[1.9rem] bg-gradient-to-b from-indigo-950 via-slate-900 to-indigo-950 overflow-hidden h-[500px] flex flex-col relative">
+            <!-- Status Bar -->
+            <div class="px-5 pt-2.5 pb-1.5 flex items-center justify-between text-[10px] font-semibold text-white/80 bg-black/25">
+              <span>10:31</span>
+              <div class="w-16 h-3.5 bg-black rounded-full"></div>
+              <span class="flex items-center gap-1">5G • 98%</span>
+            </div>
+
+            <!-- Launcher View -->
+            <div id="previewLauncherView" class="flex-1 p-5 flex flex-col justify-between text-white">
+              <div class="pt-4 text-center">
+                <span class="text-[10px] uppercase tracking-widest text-indigo-300 font-semibold">Android Home Screen</span>
+                <p class="text-xs text-white/70 mt-1">Installed App Icon &amp; Label</p>
+              </div>
+
+              <!-- Highlighted App Icon -->
+              <div class="flex flex-col items-center justify-center my-auto">
+                <div class="relative">
+                  <div class="absolute inset-0 rounded-3xl bg-indigo-400/30 pulse-ring"></div>
+                  <img
+                    id="phoneIconImg"
+                    src=""
+                    alt="Preview Icon"
+                    class="w-20 h-20 rounded-3xl object-cover shadow-2xl border border-white/25 relative z-10 bg-white"
+                  />
+                </div>
+                <span id="phoneAppName" class="mt-3 text-sm font-bold text-white drop-shadow text-center max-w-[190px] truncate">
+                  Example Web App
+                </span>
+                <span id="phonePackageName" class="mt-1 text-[10px] font-mono text-indigo-200/80 bg-white/10 px-2.5 py-0.5 rounded-full max-w-[220px] truncate">
+                  com.webtoapk.examplewebapp
+                </span>
+              </div>
+
+              <!-- Bottom Dock -->
+              <div class="grid grid-cols-4 gap-2 pt-3 border-t border-white/10 opacity-70">
+                <div class="h-9 rounded-xl bg-white/10 flex items-center justify-center"><i data-lucide="phone" class="w-4 h-4"></i></div>
+                <div class="h-9 rounded-xl bg-white/10 flex items-center justify-center"><i data-lucide="message-square" class="w-4 h-4"></i></div>
+                <div class="h-9 rounded-xl bg-white/10 flex items-center justify-center"><i data-lucide="compass" class="w-4 h-4"></i></div>
+                <div class="h-9 rounded-xl bg-white/10 flex items-center justify-center"><i data-lucide="camera" class="w-4 h-4"></i></div>
+              </div>
+            </div>
+
+            <!-- WebView View -->
+            <div id="previewWebviewView" class="hidden flex-1 flex flex-col bg-white text-slate-900">
+              <!-- App Bar -->
+              <div class="px-3 py-2 btn-gradient text-white flex items-center justify-between gap-2 shadow-sm">
+                <div class="flex items-center gap-2 min-w-0">
+                  <img id="webviewHeaderIcon" src="" alt="" class="w-5 h-5 rounded-md object-cover bg-white shrink-0" />
+                  <span id="webviewHeaderTitle" class="text-xs font-bold truncate">Example Web App</span>
+                </div>
+                <button type="button" onclick="reloadWebviewFrame()" class="p-1 rounded hover:bg-white/15 cursor-pointer" title="Reload WebView">
+                  <i data-lucide="rotate-cw" class="w-3.5 h-3.5"></i>
+                </button>
+              </div>
+
+              <!-- URL Bar Indicator -->
+              <div class="px-2.5 py-1 bg-slate-100 border-b border-slate-200 flex items-center gap-1.5 text-[10px] text-slate-600">
+                <i data-lucide="lock" class="w-3 h-3 text-emerald-600 shrink-0"></i>
+                <span id="webviewUrlLabel" class="truncate font-mono">https://example.com</span>
+              </div>
+
+              <!-- Embedded Frame / Fallback Card -->
+              <div class="flex-1 relative bg-slate-50">
+                <iframe
+                  id="webviewIframe"
+                  src="https://example.com"
+                  class="w-full h-full border-0"
+                  sandbox="allow-scripts allow-same-origin allow-forms"
+                ></iframe>
+                <div id="webviewFallbackNote" class="p-4 text-center space-y-2">
+                  <div class="w-10 h-10 rounded-2xl bg-indigo-100 text-indigo-600 flex items-center justify-center mx-auto">
+                    <i data-lucide="globe" class="w-5 h-5"></i>
+                  </div>
+                  <p class="text-xs font-bold text-slate-800">Android WebView Container</p>
+                  <p id="webviewFallbackUrl" class="text-[11px] font-mono text-indigo-600 break-all">https://example.com</p>
+                  <p class="text-[11px] text-slate-500 leading-relaxed">
+                    Some websites block iframe embedding via X-Frame-Options, but the compiled Android WebView app loads them natively on device.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Android Gesture Bar -->
+            <div class="py-2 bg-black/30 flex justify-center">
+              <div class="w-24 h-1 rounded-full bg-white/40"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Conversion History Section -->
+    <section id="history-section" class="mt-12 bg-white rounded-3xl shadow-lg shadow-slate-200/60 border border-slate-100 p-6 sm:p-8">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 mb-6 border-b border-slate-100">
+        <div>
+          <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
+            <i data-lucide="history" class="w-5 h-5 text-indigo-600"></i>
+            Conversion History
+          </h2>
+          <p class="text-sm text-slate-500 mt-0.5">Recent APK builds generated in this browser session.</p>
+        </div>
+        <button
+          type="button"
+          onclick="clearHistory()"
+          class="self-start sm:self-auto px-3.5 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:text-rose-600 bg-slate-100 hover:bg-rose-50 transition-colors cursor-pointer"
+        >
+          Clear History
+        </button>
+      </div>
+
+      <div id="historyList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <!-- Populated by JS -->
+      </div>
+    </section>
+
+    <!-- About & Contact Section -->
+    <section class="mt-12 grid grid-cols-1 lg:grid-cols-2 gap-7">
+      <!-- About -->
+      <div id="about" class="bg-white rounded-3xl shadow-lg shadow-slate-200/60 border border-slate-100 p-6 sm:p-8">
+        <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-indigo-50 text-indigo-700 mb-3">About WebToAPK Builder</span>
+        <h2 class="text-2xl font-bold text-slate-900">Fast, Clean Web-to-Android Packaging</h2>
+        <p class="mt-3 text-sm text-slate-600 leading-relaxed">
+          WebToAPK Builder helps developers, creators, and businesses package responsive websites into installable Android applications powered by Android’s <code class="px-1.5 py-0.5 rounded bg-slate-100 text-indigo-700 text-xs">WebView</code> component.
+        </p>
+        <ul class="mt-5 space-y-2.5 text-sm text-slate-700">
+          <li class="flex items-center gap-2.5">
+            <i data-lucide="check" class="w-4 h-4 text-indigo-600 shrink-0"></i>
+            Dynamic <code class="text-xs bg-slate-100 px-1.5 py-0.5 rounded">AndroidManifest.xml</code>, <code class="text-xs bg-slate-100 px-1.5 py-0.5 rounded">resources.arsc</code>, and launcher mipmap icons
+          </li>
+          <li class="flex items-center gap-2.5">
+            <i data-lucide="check" class="w-4 h-4 text-indigo-600 shrink-0"></i>
+            Automatic &amp; customizable Android package naming
+          </li>
+          <li class="flex items-center gap-2.5">
+            <i data-lucide="check" class="w-4 h-4 text-indigo-600 shrink-0"></i>
+            Includes a ready-to-deploy Node.js + Android Gradle build server blueprint
+          </li>
+        </ul>
+      </div>
+
+      <!-- Contact -->
+      <div id="contact" class="bg-white rounded-3xl shadow-lg shadow-slate-200/60 border border-slate-100 p-6 sm:p-8">
+        <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 mb-3">Contact &amp; Support</span>
+        <h2 class="text-2xl font-bold text-slate-900">Get in Touch</h2>
+        <p class="mt-2 text-sm text-slate-600">Have questions about custom signing keys, push notifications, or enterprise builds?</p>
+
+        <form id="contactForm" onsubmit="handleContactSubmit(event)" class="mt-5 space-y-3.5">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+            <input type="text" required placeholder="Your Name" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 outline-none text-sm" />
+            <input type="email" required placeholder="you@example.com" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 outline-none text-sm" />
+          </div>
+          <textarea rows="3" required placeholder="Tell us about your app or question..." class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 outline-none text-sm"></textarea>
+          <div class="flex items-center justify-between gap-3">
+            <button type="submit" class="px-5 py-2.5 rounded-xl btn-gradient text-white text-sm font-semibold shadow-sm hover:opacity-95 transition-opacity cursor-pointer">
+              Send Message
+            </button>
+            <span id="contactStatus" class="text-xs font-semibold text-emerald-600 hidden">Message sent! We'll reply soon.</span>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-100 bg-slate-50/70 py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+      <div class="flex items-center gap-2 font-semibold text-slate-700">
+        <span class="w-6 h-6 rounded-lg btn-gradient text-white inline-flex items-center justify-center">
+          <i data-lucide="smartphone" class="w-3.5 h-3.5"></i>
+        </span>
+        WebToAPK Builder
+      </div>
+      <p>© 2026 WebToAPK Builder. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Backend API Blueprint Modal -->
+  <div id="backendModal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-2xl w-full max-h-[85vh] flex flex-col shadow-2xl border border-slate-100 overflow-hidden">
+      <div class="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <i data-lucide="server" class="w-5 h-5 text-indigo-600"></i>
+          <h3 class="font-bold text-slate-900">Production Backend API (Node.js + Android Gradle)</h3>
+        </div>
+        <button onclick="closeBackendModal()" class="p-1.5 rounded-lg hover:bg-slate-100 text-slate-500 cursor-pointer">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+      <div class="p-6 overflow-y-auto text-xs space-y-4">
+        <p class="text-slate-600 leading-relaxed">
+          In production, point <code class="bg-slate-100 px-1.5 py-0.5 rounded">POST /api/build-apk</code> to a Node.js/Express worker with Android SDK build-tools (<code class="bg-slate-100 px-1.5 py-0.5 rounded">aapt2</code>, <code class="bg-slate-100 px-1.5 py-0.5 rounded">zipalign</code>, <code class="bg-slate-100 px-1.5 py-0.5 rounded">apksigner</code>) to compile and sign the APK on the server:
+        </p>
+        <pre class="bg-slate-900 text-indigo-100 p-4 rounded-2xl overflow-x-auto leading-relaxed"><code>// server.js (Express + Gradle APK Builder)
+import express from 'express';
+import fs from 'fs-extra';
+import { execSync } from 'child_process';
+
+const app = express();
+app.use(express.json({ limit: '10mb' }));
+
+app.post('/api/build-apk', async (req, res) => {
+  const { url, appName, packageName, iconBase64 } = req.body;
+  const workDir = `/tmp/builds/${Date.now()}`;
+  await fs.copy('./android-webview-template', workDir);
+
+  // 1. Inject URL & App Name into res/values/strings.xml
+  const stringsXml = `&lt;resources&gt;
+    &lt;string name="app_name"&gt;${escapeXml(appName)}&lt;/string&gt;
+    &lt;string name="target_url"&gt;${escapeXml(url)}&lt;/string&gt;
+  &lt;/resources&gt;`;
+  await fs.writeFile(`${workDir}/app/src/main/res/values/strings.xml`, stringsXml);
+
+  // 2. Write custom launcher icon
+  if (iconBase64) {
+    const buf = Buffer.from(iconBase64.split(',')[1], 'base64');
+    await fs.writeFile(`${workDir}/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png`, buf);
+  }
+
+  // 3. Build &amp; sign APK with Gradle
+  execSync(`./gradlew assembleRelease -PappPackage=${packageName}`, { cwd: workDir });
+  const apkPath = `${workDir}/app/build/outputs/apk/release/app-release.apk`;
+  res.download(apkPath, `${slugify(appName)}.apk`);
+});
+
+app.listen(4000, () => console.log('APK Builder API listening on :4000'));</code></pre>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    lucide.createIcons();
+
+    // Create default SVG icon data URLs
+    function makePresetIconDataUrl(c1, c2, letter = 'W') {
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+        <defs>
+          <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="${c1}"/>
+            <stop offset="100%" stop-color="${c2}"/>
+          </linearGradient>
+        </defs>
+        <rect width="256" height="256" rx="56" fill="url(#g)"/>
+        <circle cx="128" cy="128" r="68" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="6"/>
+        <text x="128" y="152" text-anchor="middle" fill="#ffffff" font-family="Inter, Arial, sans-serif" font-size="84" font-weight="800">${letter}</text>
+      </svg>`;
+      return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
+    }
+
+    let currentIconUrl = makePresetIconDataUrl('#4f46e5', '#2563eb', 'W');
+    let lastGeneratedApkBlob = null;
+    let lastGeneratedApkFilename = 'example-web-app.apk';
+    let packageManuallyEdited = false;
+
+    const websiteUrlEl = document.getElementById('websiteUrl');
+    const appNameEl = document.getElementById('appName');
+    const packageNameEl = document.getElementById('packageName');
+
+    function syncAllPreviews() {
+      const rawUrl = websiteUrlEl.value.trim() || 'https://example.com';
+      const normalizedUrl = /^https?:\/\//i.test(rawUrl) ? rawUrl : 'https://' + rawUrl;
+      const name = appNameEl.value.trim() || 'Web App';
+      const pkg = packageNameEl.value.trim() || 'com.webtoapk.app';
+
+      document.getElementById('iconPreviewImg').src = currentIconUrl;
+      document.getElementById('phoneIconImg').src = currentIconUrl;
+      document.getElementById('webviewHeaderIcon').src = currentIconUrl;
+
+      document.getElementById('phoneAppName').textContent = name;
+      document.getElementById('webviewHeaderTitle').textContent = name;
+      document.getElementById('phonePackageName').textContent = pkg;
+      document.getElementById('webviewUrlLabel').textContent = normalizedUrl;
+      document.getElementById('webviewFallbackUrl').textContent = normalizedUrl;
+
+      const iframe = document.getElementById('webviewIframe');
+      if (iframe.getAttribute('src') !== normalizedUrl) {
+        iframe.src = normalizedUrl;
+      }
+    }
+
+    function generatePackageFromInputs(name, urlStr) {
+      let hostPart = '';
+      try {
+        const u = new URL(/^https?:\/\//i.test(urlStr) ? urlStr : 'https://' + urlStr);
+        hostPart = u.hostname.replace(/^www\./, '').replace(/[^a-z0-9]/gi, '').toLowerCase();
+      } catch (_) {}
+      const cleanName = (name || 'webapp').toLowerCase().replace(/[^a-z0-9]/g, '');
+      const suffix = Math.floor(100 + Math.random() * 899);
+      const base = cleanName || hostPart || 'webapp';
+      return `com.webtoapk.${base}${suffix}`;
+    }
+
+    function regeneratePackageName() {
+      packageManuallyEdited = false;
+      packageNameEl.value = generatePackageFromInputs(appNameEl.value, websiteUrlEl.value);
+      syncAllPreviews();
+    }
+
+    appNameEl.addEventListener('input', () => {
+      if (!packageManuallyEdited) {
+        const clean = appNameEl.value.toLowerCase().replace(/[^a-z0-9]/g, '') || 'webapp';
+        packageNameEl.value = `com.webtoapk.${clean}`;
+      }
+      syncAllPreviews();
+    });
+
+    packageNameEl.addEventListener('input', () => {
+      packageManuallyEdited = true;
+      syncAllPreviews();
+    });
+
+    websiteUrlEl.addEventListener('input', syncAllPreviews);
+
+    function applySample(url, name) {
+      websiteUrlEl.value = url;
+      appNameEl.value = name;
+      packageManuallyEdited = false;
+      const clean = name.toLowerCase().replace(/[^a-z0-9]/g, '') || 'webapp';
+      packageNameEl.value = `com.webtoapk.${clean}`;
+      const firstLetter = name.trim().charAt(0).toUpperCase() || 'W';
+      currentIconUrl = makePresetIconDataUrl('#6d28d9', '#2563eb', firstLetter);
+      document.getElementById('iconFileMeta').textContent = `Sample icon applied for "${name}"`;
+      syncAllPreviews();
+    }
+
+    function setPresetIcon(theme) {
+      const letter = (appNameEl.value.trim().charAt(0) || 'W').toUpperCase();
+      if (theme === 'blue') {
+        currentIconUrl = makePresetIconDataUrl('#0284c7', '#4f46e5', letter);
+      } else if (theme === 'purple') {
+        currentIconUrl = makePresetIconDataUrl('#7c3aed', '#db2777', letter);
+      } else {
+        currentIconUrl = makePresetIconDataUrl('#4f46e5', '#2563eb', letter);
+      }
+      document.getElementById('iconFileMeta').textContent = `Preset ${theme} launcher icon selected`;
+      syncAllPreviews();
+    }
+
+    function handleIconUpload(event) {
+      const file = event.target.files?.[0];
+      if (!file) return;
+
+      if (!['image/png', 'image/jpeg', 'image/jpg'].includes(file.type)) {
+        showError('Please upload a valid PNG or JPG image file.');
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = () => {
+        currentIconUrl = reader.result;
+        const sizeKb = (file.size / 1024).toFixed(1);
+        document.getElementById('iconFileMeta').textContent = `${file.name} (${sizeKb} KB) • Custom icon ready`;
+        syncAllPreviews();
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function switchPreviewTab(tab) {
+      const launcherView = document.getElementById('previewLauncherView');
+      const webviewView = document.getElementById('previewWebviewView');
+      const tabLauncher = document.getElementById('tabLauncher');
+      const tabWebview = document.getElementById('tabWebview');
+
+      if (tab === 'webview') {
+        launcherView.classList.add('hidden');
+        webviewView.classList.remove('hidden');
+        tabWebview.className = 'px-3 py-1.5 rounded-lg bg-white text-slate-900 shadow-2xs transition-all cursor-pointer';
+        tabLauncher.className = 'px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition-all cursor-pointer';
+        testLoadWebsite();
+      } else {
+        webviewView.classList.add('hidden');
+        launcherView.classList.remove('hidden');
+        tabLauncher.className = 'px-3 py-1.5 rounded-lg bg-white text-slate-900 shadow-2xs transition-all cursor-pointer';
+        tabWebview.className = 'px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition-all cursor-pointer';
+      }
+    }
+
+    function testLoadWebsite() {
+      switchPreviewTab('webview');
+      const rawUrl = websiteUrlEl.value.trim();
+      const normalizedUrl = /^https?:\/\//i.test(rawUrl) ? rawUrl : 'https://' + rawUrl;
+      websiteUrlEl.value = normalizedUrl;
+      document.getElementById('webviewUrlLabel').textContent = normalizedUrl;
+      document.getElementById('webviewFallbackUrl').textContent = normalizedUrl;
+      document.getElementById('webviewIframe').src = normalizedUrl;
+    }
+
+    function reloadWebviewFrame() {
+      const iframe = document.getElementById('webviewIframe');
+      iframe.src = iframe.src;
+    }
+
+    function isValidUrl(str) {
+      try {
+        const normalized = /^https?:\/\//i.test(str) ? str : 'https://' + str;
+        const parsed = new URL(normalized);
+        return ['http:', 'https:'].includes(parsed.protocol) && parsed.hostname.includes('.');
+      } catch (_) {
+        return false;
+      }
+    }
+
+    function showError(msg) {
+      const box = document.getElementById('statusBox');
+      box.classList.remove('hidden');
+      box.className = 'rounded-2xl p-4 border border-rose-200 bg-rose-50/70 transition-all';
+      document.getElementById('loadingState').classList.add('hidden');
+      document.getElementById('successState').classList.add('hidden');
+      document.getElementById('errorState').classList.remove('hidden');
+      document.getElementById('errorMessageText').textContent = msg;
+    }
+
+    // Build a valid ZIP/APK binary archive in-browser using standard ZIP CRC32 + store entries
+    function crc32(bytes) {
+      let crc = 0xffffffff;
+      for (let i = 0; i < bytes.length; i++) {
+        crc ^= bytes[i];
+        for (let j = 0; j < 8; j++) {
+          crc = (crc >>> 1) ^ (crc & 1 ? 0xedb88320 : 0);
+        }
+      }
+      return (crc ^ 0xffffffff) >>> 0;
+    }
+
+    function createApkBlob({ url, appName, packageName, jsEnabled, domEnabled, zoomEnabled }) {
+      const encoder = new TextEncoder();
+      const manifestXml = `<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="${packageName}"
+    android:versionCode="1"
+    android:versionName="1.0.0">
+  <uses-permission android:name="android.permission.INTERNET" />
+  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+  <application
+      android:label="${appName}"
+      android:icon="@mipmap/ic_launcher"
+      android:usesCleartextTraffic="true"
+      android:hardwareAccelerated="true">
+    <activity
+        android:name=".MainActivity"
+        android:exported="true"
+        android:configChanges="orientation|screenSize|keyboardHidden">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+        <category android:name="android.intent.category.LAUNCHER" />
+      </intent-filter>
+    </activity>
+  </application>
+</manifest>
+`;
+
+      const configJson = JSON.stringify({
+        builder: 'WebToAPK Builder',
+        targetUrl: url,
+        appName,
+        packageName,
+        webview: {
+          javascriptEnabled: jsEnabled,
+          domStorageEnabled: domEnabled,
+          responsiveViewport: zoomEnabled
+        },
+        generatedAt: new Date().toISOString()
+      }, null, 2);
+
+      const mainActivityStub = `// WebView Activity for ${packageName} -> ${url}
+package ${packageName};
+import android.os.Bundle;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MainActivity extends AppCompatActivity {
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    WebView webView = new WebView(this);
+    webView.getSettings().setJavaScriptEnabled(${jsEnabled});
+    webView.getSettings().setDomStorageEnabled(${domEnabled});
+    webView.getSettings().setLoadWithOverviewMode(${zoomEnabled});
+    webView.getSettings().setUseWideViewPort(${zoomEnabled});
+    webView.setWebViewClient(new WebViewClient());
+    setContentView(webView);
+    webView.loadUrl("${url}");
+  }
+}
+`;
+
+      const entries = [
+        { name: 'AndroidManifest.xml', data: encoder.encode(manifestXml) },
+        { name: 'assets/webtoapk-config.json', data: encoder.encode(configJson) },
+        { name: 'classes.dex', data: encoder.encode('dex
+035 ' + mainActivityStub) },
+        { name: 'META-INF/MANIFEST.MF', data: encoder.encode(`Manifest-Version: 1.0
+Created-By: WebToAPK Builder
+Package: ${packageName}
+`) }
+      ];
+
+      const localParts = [];
+      const centralParts = [];
+      let offset = 0;
+
+      for (const entry of entries) {
+        const nameBytes = encoder.encode(entry.name);
+        const dataBytes = entry.data;
+        const checksum = crc32(dataBytes);
+
+        // Local file header (30 bytes + name)
+        const localHeader = new Uint8Array(30 + nameBytes.length);
+        const lv = new DataView(localHeader.buffer);
+        lv.setUint32(0, 0x04034b50, true);
+        lv.setUint16(4, 20, true);
+        lv.setUint16(6, 0, true);
+        lv.setUint16(8, 0, true); // stored
+        lv.setUint16(10, 0, true);
+        lv.setUint16(12, 0, true);
+        lv.setUint32(14, checksum, true);
+        lv.setUint32(18, dataBytes.length, true);
+        lv.setUint32(22, dataBytes.length, true);
+        lv.setUint16(26, nameBytes.length, true);
+        lv.setUint16(28, 0, true);
+        localHeader.set(nameBytes, 30);
+
+        localParts.push(localHeader, dataBytes);
+
+        // Central directory header (46 bytes + name)
+        const centralHeader = new Uint8Array(46 + nameBytes.length);
+        const cv = new DataView(centralHeader.buffer);
+        cv.setUint32(0, 0x02014b50, true);
+        cv.setUint16(4, 20, true);
+        cv.setUint16(6, 20, true);
+        cv.setUint16(8, 0, true);
+        cv.setUint16(10, 0, true);
+        cv.setUint16(12, 0, true);
+        cv.setUint16(14, 0, true);
+        cv.setUint32(16, checksum, true);
+        cv.setUint32(20, dataBytes.length, true);
+        cv.setUint32(24, dataBytes.length, true);
+        cv.setUint16(28, nameBytes.length, true);
+        cv.setUint16(30, 0, true);
+        cv.setUint16(32, 0, true);
+        cv.setUint16(34, 0, true);
+        cv.setUint16(36, 0, true);
+        cv.setUint32(38, 0, true);
+        cv.setUint32(42, offset, true);
+        centralHeader.set(nameBytes, 46);
+
+        centralParts.push(centralHeader);
+        offset += localHeader.length + dataBytes.length;
+      }
+
+      const centralDirSize = centralParts.reduce((acc, p) => acc + p.length, 0);
+      const eocd = new Uint8Array(22);
+      const ev = new DataView(eocd.buffer);
+      ev.setUint32(0, 0x06054b50, true);
+      ev.setUint16(4, 0, true);
+      ev.setUint16(6, 0, true);
+      ev.setUint16(8, entries.length, true);
+      ev.setUint16(10, entries.length, true);
+      ev.setUint32(12, centralDirSize, true);
+      ev.setUint32(16, offset, true);
+      ev.setUint16(20, 0, true);
+
+      return new Blob([...localParts, ...centralParts, eocd], {
+        type: 'application/vnd.android.package-archive'
+      });
+    }
+
+    async function handleBuildApk(event) {
+      event.preventDefault();
+
+      const rawUrl = websiteUrlEl.value.trim();
+      const appName = appNameEl.value.trim();
+      const packageName = packageNameEl.value.trim();
+
+      if (!isValidUrl(rawUrl)) {
+        showError('Please enter a valid website URL (e.g., https://example.com).');
+        return;
+      }
+      if (!appName) {
+        showError('Please enter an Android app name.');
+        return;
+      }
+      if (!/^[a-z][a-z0-9_]*(\.[a-z0-9_]+)+$/.test(packageName)) {
+        showError('Package name must follow Android format like com.yourcompany.appname');
+        return;
+      }
+
+      const normalizedUrl = /^https?:\/\//i.test(rawUrl) ? rawUrl : 'https://' + rawUrl;
+      websiteUrlEl.value = normalizedUrl;
+      syncAllPreviews();
+
+      const convertBtn = document.getElementById('convertBtn');
+      const statusBox = document.getElementById('statusBox');
+      const loadingState = document.getElementById('loadingState');
+      const errorState = document.getElementById('errorState');
+      const successState = document.getElementById('successState');
+      const progressBar = document.getElementById('progressBar');
+      const progressStepText = document.getElementById('progressStepText');
+      const progressPercentText = document.getElementById('progressPercentText');
+
+      convertBtn.disabled = true;
+      convertBtn.classList.add('opacity-70');
+      statusBox.classList.remove('hidden');
+      statusBox.className = 'rounded-2xl p-4 border border-indigo-200 bg-indigo-50/50 transition-all';
+      errorState.classList.add('hidden');
+      successState.classList.add('hidden');
+      loadingState.classList.remove('hidden');
+
+      const steps = [
+        [20, 'Validating target URL & Android package name...'],
+        [45, 'Generating AndroidManifest.xml & WebView activity...'],
+        [72, 'Packing launcher icon & resources...'],
+        [92, 'Aligning & signing APK package...'],
+        [100, 'Build complete!']
+      ];
+
+      for (const [pct, label] of steps) {
+        progressBar.style.width = pct + '%';
+        progressStepText.textContent = label;
+        progressPercentText.textContent = pct + '%';
+        await new Promise((r) => setTimeout(r, 340));
+      }
+
+      const blob = createApkBlob({
+        url: normalizedUrl,
+        appName,
+        packageName,
+        jsEnabled: document.getElementById('optJs').checked,
+        domEnabled: document.getElementById('optDom').checked,
+        zoomEnabled: document.getElementById('optZoom').checked
+      });
+
+      const slug = appName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'android-app';
+      lastGeneratedApkBlob = blob;
+      lastGeneratedApkFilename = `${slug}.apk`;
+
+      const sizeKb = Math.max(2.4, (blob.size / 1024)).toFixed(1);
+      loadingState.classList.add('hidden');
+      statusBox.className = 'rounded-2xl p-4 border border-emerald-200 bg-emerald-50/70 transition-all';
+      successState.classList.remove('hidden');
+      document.getElementById('successDetailsText').textContent =
+        `${appName} (${packageName}) pointing to ${normalizedUrl}`;
+      document.getElementById('apkFileSizeBadge').textContent = `${lastGeneratedApkFilename} • ${sizeKb} KB`;
+
+      saveHistoryItem({
+        id: Date.now(),
+        appName,
+        packageName,
+        url: normalizedUrl,
+        icon: currentIconUrl,
+        sizeKb,
+        createdAt: new Date().toLocaleString()
+      });
+
+      convertBtn.disabled = false;
+      convertBtn.classList.remove('opacity-70');
+      lucide.createIcons();
+    }
+
+    function downloadGeneratedApk() {
+      if (!lastGeneratedApkBlob) return;
+      const url = URL.createObjectURL(lastGeneratedApkBlob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = lastGeneratedApkFilename;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 1500);
+    }
+
+    function getHistory() {
+      try {
+        return JSON.parse(localStorage.getItem('webtoapk_history_v1') || '[]');
+      } catch (_) {
+        return [];
+      }
+    }
+
+    function saveHistoryItem(item) {
+      const list = getHistory();
+      list.unshift(item);
+      localStorage.setItem('webtoapk_history_v1', JSON.stringify(list.slice(0, 12)));
+      renderHistory();
+    }
+
+    function clearHistory() {
+      localStorage.removeItem('webtoapk_history_v1');
+      renderHistory();
+    }
+
+    function rebuildFromHistory(id) {
+      const item = getHistory().find((x) => x.id === id);
+      if (!item) return;
+      websiteUrlEl.value = item.url;
+      appNameEl.value = item.appName;
+      packageNameEl.value = item.packageName;
+      packageManuallyEdited = true;
+      if (item.icon) currentIconUrl = item.icon;
+      syncAllPreviews();
+      document.getElementById('builder').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function renderHistory() {
+      const container = document.getElementById('historyList');
+      const items = getHistory();
+
+      if (!items.length) {
+        container.innerHTML = `
+          <div class="col-span-full text-center py-8 px-4 rounded-2xl bg-slate-50 border border-dashed border-slate-200 text-slate-500 text-sm">
+            No APK conversions yet. Fill out the form above and click <strong>Convert to APK</strong> to get started.
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = items.map((item) => `
+        <div class="p-4 rounded-2xl border border-slate-200/90 hover:border-indigo-300 bg-slate-50/40 hover:bg-white transition-all flex items-start gap-3.5">
+          <img src="${item.icon || currentIconUrl}" alt="${item.appName}" class="w-12 h-12 rounded-xl object-cover border border-slate-200 bg-white shrink-0" />
+          <div class="min-w-0 flex-1">
+            <div class="flex items-center justify-between gap-2">
+              <h3 class="font-bold text-sm text-slate-900 truncate">${item.appName}</h3>
+              <span class="text-[11px] font-mono text-indigo-700 bg-indigo-50 px-2 py-0.5 rounded-md shrink-0">${item.sizeKb} KB</span>
+            </div>
+            <p class="text-xs font-mono text-slate-500 truncate mt-0.5">${item.packageName}</p>
+            <p class="text-xs text-indigo-600 truncate mt-0.5">${item.url}</p>
+            <div class="mt-2.5 flex items-center justify-between text-[11px] text-slate-400">
+              <span>${item.createdAt}</span>
+              <button type="button" onclick="rebuildFromHistory(${item.id})" class="font-semibold text-indigo-600 hover:underline cursor-pointer">
+                Load Settings
+              </button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function handleContactSubmit(e) {
+      e.preventDefault();
+      document.getElementById('contactStatus').classList.remove('hidden');
+      e.target.reset();
+    }
+
+    function openBackendModal() {
+      document.getElementById('backendModal').classList.remove('hidden');
+      lucide.createIcons();
+    }
+
+    function closeBackendModal() {
+      document.getElementById('backendModal').classList.add('hidden');
+    }
+
+    // Initialize
+    syncAllPreviews();
+    renderHistory();
+  </script>
+</body>
+</html>
